@@ -1,0 +1,17 @@
+{
+	"name": "angular-component-tabletop",
+	"version": "0.0.0",
+	"scripts": {
+		"init": "sh init.sh"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/daniymilner/angular-component-tabletop.git"
+	},
+	"author": "Aleksey Olenyuk <alo@qapint.com>",
+	"license": "ISC",
+	"bugs": {
+		"url": "https://github.com/daniymilner/angular-component-tabletop/issues"
+	},
+	"homepage": "https://github.com/daniymilner/angular-component-tabletop#readme"
+}
