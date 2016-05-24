@@ -51,3 +51,4 @@ crashlytics-build.properties
 component-gallery/
 npm-debug.log
 node_modules/
+public/bower_components/

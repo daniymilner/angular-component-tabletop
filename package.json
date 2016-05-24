@@ -1,23 +1,26 @@
 {
-	"name": "angular-component-tabletop",
-	"version": "0.0.0",
-	"scripts": {
-		"start": "sh reload.sh && nodemon"
-	},
-	"main": "app.js",
-	"dependencies": {
-		"body-parser": "~1.14.2",
-		"express": "~4.13.3",
-		"morgan": "~1.6.1"
-	},
-	"repository": {
-		"type": "git",
-		"url": "git+https://github.com/daniymilner/angular-component-tabletop.git"
-	},
-	"author": "Aleksey Olenyuk <alo@qapint.com>",
-	"license": "ISC",
-	"bugs": {
-		"url": "https://github.com/daniymilner/angular-component-tabletop/issues"
-	},
-	"homepage": "https://github.com/daniymilner/angular-component-tabletop#readme"
+  "name": "angular-component-tabletop",
+  "version": "0.0.0",
+  "scripts": {
+    "start": "sh reload.sh && nodemon"
+  },
+  "main": "app.js",
+  "dependencies": {
+    "async": "~1.5.2",
+    "body-parser": "~1.14.2",
+    "express": "~4.13.3",
+    "jade": "^1.11.0",
+    "morgan": "~1.6.1",
+    "q": "^1.4.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/daniymilner/angular-component-tabletop.git"
+  },
+  "author": "Aleksey Olenyuk <alo@qapint.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/daniymilner/angular-component-tabletop/issues"
+  },
+  "homepage": "https://github.com/daniymilner/angular-component-tabletop#readme"
 }
