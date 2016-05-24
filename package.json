@@ -9,9 +9,9 @@
     "async": "~1.5.2",
     "body-parser": "~1.14.2",
     "express": "~4.13.3",
-    "jade": "^1.11.0",
+    "jade": "~1.11.0",
     "morgan": "~1.6.1",
-    "q": "^1.4.1"
+    "q": "~1.4.1"
   },
   "repository": {
     "type": "git",
