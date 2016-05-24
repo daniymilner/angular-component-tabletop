@@ -2,7 +2,13 @@
 	"name": "angular-component-tabletop",
 	"version": "0.0.0",
 	"scripts": {
-		"init": "sh init.sh"
+		"start": "sh reload.sh && nodemon"
+	},
+	"main": "app.js",
+	"dependencies": {
+		"body-parser": "~1.14.2",
+		"express": "~4.13.3",
+		"morgan": "~1.6.1"
 	},
 	"repository": {
 		"type": "git",
