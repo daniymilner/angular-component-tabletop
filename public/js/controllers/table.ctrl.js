@@ -23,9 +23,6 @@
 						})).filter(function(item, index, array){
 							return array.indexOf(item) == index;
 						});
-
-						console.log(that.companies);
-
 					})
 					.error(console.error)
 			}

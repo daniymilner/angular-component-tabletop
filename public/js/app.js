@@ -6,4 +6,9 @@
 			'ngMaterial',
 			'md.data.table'
 		])
+		.config(function($mdThemingProvider) {
+			$mdThemingProvider.theme('default')
+				.primaryPalette('indigo')
+				.accentPalette('grey');
+		});
 })();

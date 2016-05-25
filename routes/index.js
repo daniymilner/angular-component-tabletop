@@ -10,6 +10,7 @@ router
 		var path = req.url.replace(/(^\/views\/|\.html$)/gim, '');
 		res.render(path);
 	})
-	.get('/gallery/get-data', controllers.Gallery.get);
+	.get('/gallery/get-data', controllers.Gallery.get)
+	.post('/gallery/publish', controllers.Gallery.publish);
 
 module.exports = router;
