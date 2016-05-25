@@ -1,11 +1,15 @@
 div(ng-controller='tableCtrl as table')
-	md-table-container
-		table.md-cell-select.multiple.md-table()
-			thead.md-head
-				tr.md-row
-					th
-					th.md-column(ng-repeat='version in table.versions', ng-bind='version.name')
-			tbody.md-body
-				tr.md-row(ng-repeat='company in table.companies')
-					td.md-cell(ng-bind='company')
-					td.md-cell(ng-repeat='version in table.versions')
+	md-content.md-padding
+		md-tabs(md-dynamic-height, md-border-bottom)
+			md-tab(ng-repeat='(tab_index, tab) in table.data', label="{{tab.company_name}}")
+				md-content
+					md-table-container
+						table.md-cell-select.multiple.md-table
+							thead.md-head
+								tr.md-row
+									th
+									th.md-column(ng-repeat='version in table.data[0].components', ng-bind='version.version')
+							tbody.md-body
+								tr.md-row(ng-repeat='company in table.data.components.list')
+									td.md-cell(ng-bind='company.company_name')
+									td.md-cell(ng-repeat='component in company.components[]')

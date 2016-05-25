@@ -9,8 +9,10 @@
     "async": "~1.5.2",
     "body-parser": "~1.14.2",
     "express": "~4.13.3",
+    "fs-extra": "^0.30.0",
     "jade": "~1.11.0",
     "morgan": "~1.6.1",
+    "object-assign": "^4.1.0",
     "q": "~1.4.1",
     "request": "^2.72.0",
     "zipper": "git+ssh://git@git.qapint.com:ewizard/zipper.git#0.1.2"
