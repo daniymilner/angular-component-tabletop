@@ -1,0 +1,31 @@
+md-dialog(aria-label='Publish')
+	form
+		md-toolbar
+			.md-toolbar-tools
+				h2 Publish
+				span(flex='')
+				md-button.md-icon-button(ng-click='dialog.cancel()')
+					i.material-icons close
+		md-dialog-content
+			.md-dialog-content
+
+				form(name='projectForm')
+					md-input-container.md-block
+						label eWizard instance
+						input(required='', name='instance', type='text', ng-model='dialog.data.instance')
+						div(ng-messages='projectForm.instance.$error')
+							div(ng-message='required') This is required.
+							div(ng-message='required') Example: https://release.ewizard-detailing.com
+					md-input-container.md-block
+						label Login
+						input(required='', name='login', type='text', ng-model='dialog.data.login')
+						div(ng-messages='projectForm.login.$error')
+							div(ng-message='required') Login is required.
+					md-input-container.md-block
+						label Password
+						input(required='', type='password', name='password', ng-model='dialog.data.password')
+						div(ng-messages='projectForm.password.$error')
+							div(ng-message='required') Password is required.
+
+	md-dialog-actions(layout='row')
+			md-button(ng-click="dialog.send()") Publish

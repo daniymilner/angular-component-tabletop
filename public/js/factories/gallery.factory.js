@@ -9,6 +9,9 @@
 				this.getGallery = function(){
 					return $http.get('/gallery/get-data');
 				};
+				this.publish = function(data){
+					return $http.post('/gallery/publish', data);
+				};
 				return this;
 			}
 		])

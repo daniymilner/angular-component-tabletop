@@ -2,10 +2,12 @@ doctype html
 html(ng-app='angular-component-tabletop')
 	head
 		meta(name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no")
+		link(href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet")
 		link(rel="stylesheet" href="/bower_components/angular-material/angular-material.css")
 		title Component Tabletop
 	body
 		main(ng-controller='mainCtrl as main')
+			md-button.md-primary.md-raised(ng-click="main.showPublishPopup($event)") Publish
 			h1 Components
 		script(src='bower_components/angular/angular.min.js')
 		script(src='bower_components/angular-aria/angular-aria.js')
