@@ -3,14 +3,17 @@ html(ng-app='angular-component-tabletop')
 	head
 		meta(name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no")
 		link(rel="stylesheet" href="/bower_components/angular-material/angular-material.css")
+		link(rel="stylesheet" href="/bower_components/angular-material-data-table/dist/md-data-table.min.css")
 		title Component Tabletop
 	body
 		main(ng-controller='mainCtrl as main')
 			h1 Components
+			include table
 		script(src='bower_components/angular/angular.min.js')
 		script(src='bower_components/angular-aria/angular-aria.js')
 		script(src='bower_components/angular-animate/angular-animate.js')
 		script(src='bower_components/angular-material/angular-material.js')
+		script(src='bower_components/angular-material-data-table/dist/md-data-table.min.js')
 
 		script(src='js/app.js')
 
@@ -19,3 +22,4 @@ html(ng-app='angular-component-tabletop')
 
 		//controllers
 		script(src='js/controllers/main.ctrl.js')
+		script(src='js/controllers/table.ctrl.js')
