@@ -26,9 +26,9 @@
 						.show({
 							controller: ['$mdDialog', function($mdDialog){
 								this.data = {
-									instance: '',
-									login: '',
-									password: ''
+									instance: 'http://192.168.0.212:3000',
+									login: 'system',
+									password: 'pass4ewizard!'
 								};
 								this.cancel = function(){
 									$mdDialog.cancel();
