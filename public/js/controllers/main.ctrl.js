@@ -13,13 +13,6 @@
 
 				this.customFullscreen = $mdMedia('xs') || $mdMedia('sm');
 
-				Gallery
-					.getGallery()
-					.success(function(data){
-						console.log(data);
-					})
-					.error(console.error);
-
 				this.showPublishPopup = function(event){
 					var useFullScreen = ($mdMedia('sm') || $mdMedia('xs')) && this.customFullscreen;
 					$mdDialog
