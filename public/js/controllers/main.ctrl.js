@@ -7,8 +7,9 @@
 			'$mdDialog',
 			'$mdMedia',
 			'galleryFactory',
+			'tableFactory',
 			'$scope',
-			function($mdDialog, $mdMedia, Gallery, $scope){
+			function($mdDialog, $mdMedia, Gallery, Table, $scope){
 				var that = this;
 
 				this.customFullscreen = $mdMedia('xs') || $mdMedia('sm');
@@ -58,6 +59,10 @@
 						that.customFullscreen = !!wantsFullScreen;
 					});
 				};
+
+				this.getChecked = function(){
+					console.log(Table.selected);
+				}
 			}
 		])
 })();

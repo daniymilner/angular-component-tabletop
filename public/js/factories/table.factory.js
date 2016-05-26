@@ -27,13 +27,16 @@
 						});
 					},
 					elementExist = function(version, company, component){
-						if(that.selected.length){
-							var versionIndex = getElementIndexByExpression(that.selected, version, 'version'),
-								companyIndex = getElementIndexByExpression(that.selected[versionIndex].companies, company, 'name');
-
-							return that.selected[versionIndex].companies[companyIndex].components.some(function(_component){
-								return _component.id === component;
-							});
+						var versionIndex = getElementIndexByExpression(that.selected, version, 'version'),
+							companyIndex;
+						if(that.selected.length && versionIndex > -1){
+							companyIndex = getElementIndexByExpression(that.selected[versionIndex].companies, company, 'name');
+							if(companyIndex > -1){
+								return that.selected[versionIndex].companies[companyIndex].components.some(function(_component){
+									return _component.id === component;
+								});
+							}
+							return false
 						}
 						return false;
 					},
