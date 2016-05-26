@@ -41,3 +41,7 @@ exports.readJSONSync = function(pathSrc){
 	}
 	return data;
 };
+
+exports.getAuthorizationHeader = function(token){
+	return {Authorization: 'Bearer ' + token}
+};

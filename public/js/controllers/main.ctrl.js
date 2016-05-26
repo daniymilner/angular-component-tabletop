@@ -48,7 +48,9 @@
 								.success(function(data){
 									console.log(data);
 								})
-								.error(console.error);
+								.error(function(err){
+									console.error(err);
+								});
 						}, function(){
 							console.log('cancel dialog');
 						});

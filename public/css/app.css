@@ -11,3 +11,13 @@ table.md-table .separate{
 table.md-table tr td:first-child{
 	max-width: 200px;
 }
+table.md-table md-checkbox{
+	margin-bottom: 0;
+}
+table.md-table,
+table.md-table td.md-cell{
+	font-size: 15px;
+}
+table.md-table .md-title{
+	font-size: 18px;
+}

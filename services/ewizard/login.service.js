@@ -1,19 +1,26 @@
 var request = require('request'),
-	Q = require('q');
+	Q = require('q'),
+	url = require('url');
 
 module.exports = function(credential){
 	var deferrer = Q.defer();
 	request
-		.post(credential.instance + '/user/login', {form: {
-			clientId: 'WebApp',
-			login: credential.login,
-			password: credential.password
-		}}, function(err, res, body){
+		.post(url.resolve(credential.instance, '/user/login'), {
+			form: {
+				clientId: 'WebApp',
+				login: credential.login,
+				password: credential.password
+			}
+		}, function(err, res, body){
 			var response = {};
 			if(!err && body){
 				try{
 					response = JSON.parse(body);
-					deferrer.resolve(response);
+					if(!response.err){
+						deferrer.resolve(response);
+					}else{
+						deferrer.reject(response.err);
+					}
 				}
 				catch(e){
 					deferrer.reject(e);
