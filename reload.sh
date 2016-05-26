@@ -4,3 +4,5 @@ git clone git@git.qapint.com:ewizard/component-gallery.git
 cd component-gallery
 git checkout develop
 git pull
+cd ../
+node sync

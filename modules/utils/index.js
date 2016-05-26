@@ -3,7 +3,7 @@ var fs = require('fs-extra'),
 	path = require('path'),
 	objectAssign = require('object-assign');
 
-exports.readJSON = function(pathSrc, options, cb){
+exports.readJSON = function(pathSrc, options){
 	var deferred = Q.defer(),
 		defaultOptions = {
 			isNew: true
@@ -14,14 +14,11 @@ exports.readJSON = function(pathSrc, options, cb){
 		if(err){
 			if(options.isNew){
 				data = {};
-				callback(cb, null, data);
 				deferred.resolve(data);
 			}else{
-				callback(cb, err);
 				deferred.reject(err);
 			}
 		}else{
-			callback(cb, null, data);
 			deferred.resolve(data);
 		}
 	});
@@ -40,6 +37,12 @@ exports.readJSONSync = function(pathSrc){
 		}
 	}
 	return data;
+};
+
+exports.writeJSONSync = function(pathDest, data, checkOnExist){
+	if(!checkOnExist || fs.existsSync(pathDest)){
+		fs.writeFileSync(pathDest, JSON.stringify(data, null, "\t"));
+	}
 };
 
 exports.getAuthorizationHeader = function(token){

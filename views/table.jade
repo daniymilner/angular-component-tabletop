@@ -1,6 +1,6 @@
 div(ng-controller='tableCtrl as table')
 	md-content.md-padding
-		md-tabs(md-dynamic-height, md-border-bottom)
+		md-tabs(md-dynamic-height, md-border-bottom, ng-if='table.data.companies.length')
 			md-tab(ng-repeat='(tab_index, tab) in table.data.companies', label="{{tab.company_name}}")
 				md-content
 					md-table-container
@@ -19,3 +19,4 @@ div(ng-controller='tableCtrl as table')
 									td.centred.separate(ng-repeat='version in component.versions')
 										md-checkbox.md-primary(ng-show='version.data.version', aria-label='version.data.version', ng-click='table.toggle(version, tab.company_name)') {{version.data.version}}
 										span(ng-hide='version.data.version') -
+		p.md-title(ng-if='!table.data.companies.length') Database empty
