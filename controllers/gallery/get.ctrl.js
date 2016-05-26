@@ -7,7 +7,8 @@ var fs = require('fs'),
 module.exports = function(req, res){
 	var galleryPath = path.join(__dirname, '../../component-gallery'),
 		excluded = ['.git'],
-		result = [];
+		result = [],
+		versions = [];
 
 	function checkIsDirectory(contentPath){
 		return fs.lstatSync(contentPath).isDirectory();
@@ -77,21 +78,11 @@ module.exports = function(req, res){
 		return deferred.promise;
 	}
 
-	//_getCompanies()
-	//	.then(function(){
-	//		return _getComponents();
-	//	})
-	//	.then(function(data){
-	//		console.log(data);
-	//		res.json(data)
-	//
-	//	});
-
 	function getEwizardVersions(){
 		var deferred = Q.defer();
 		fs.readdir(galleryPath, function(err, content){
 			if(!err){
-				result = content.filter(function(item){
+				result = versions = content.filter(function(item){
 					return excluded.indexOf(item) === -1 && checkIsDirectory(path.join(galleryPath, item));
 				}).map(function(item){
 					return {
@@ -164,7 +155,12 @@ module.exports = function(req, res){
 	}
 
 	function sortData(){
-		var resultData = [],
+		var resultData = {
+			versions: versions.map(function(item){
+				return item.name
+			}),
+			companies: []
+		},
 			componentExist = function(array, item){
 				return array.some(function(arr_item){
 					return arr_item.name === item.component_name
@@ -182,12 +178,31 @@ module.exports = function(req, res){
 
 				return index;
 			},
-			versionExist = function(){
+			validVersion = function(version, company, component){
+				var isValid = false;
 
+				result.forEach(function(_version){
+					if(_version.name === version){
+						_version.company.forEach(function(_company){
+							if(_company.name === company){
+								isValid = _company.components.some(function(_component){
+									return _component.component_name === component
+								});
+							}
+						});
+					}
+				});
+
+				return isValid;
+			},
+			versionExist = function(array, item){
+				return array.some(function(arr_item){
+					return arr_item.version === item
+				})
 			};
 
-		resultData = [].concat.apply([], result.map(function(version){
-			return resultData.concat(version.company.map(function(company){
+		resultData.companies = [].concat.apply([], result.map(function(version){
+			return resultData.companies.concat(version.company.map(function(company){
 				return company.name
 			}));
 		})).filter(function(item, index, array){
@@ -199,7 +214,7 @@ module.exports = function(req, res){
 			};
 		});
 
-		resultData.forEach(function(company){
+		resultData.companies.forEach(function(company){
 			result.forEach(function(version){
 				version.company.forEach(function(_company){
 					if(_company.name === company.company_name){
@@ -219,6 +234,19 @@ module.exports = function(req, res){
 								})
 							}
 						});
+					}
+				});
+			});
+		});
+
+		resultData.versions.forEach(function(version, version_index){
+			resultData.companies.forEach(function(company){
+				company.components.forEach(function(component){
+					if(!validVersion(version, company.company_name, component.name) && !versionExist(component.versions, version)){
+						component.versions.splice(version_index, 0, {
+							version: version,
+							data: {}
+						})
 					}
 				});
 			});
