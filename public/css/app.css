@@ -1,3 +1,13 @@
 table.md-table .centred{
 	text-align: center!important;
 }
+table.md-table .separate{
+	border-right: 1px rgba(0,0,0,.12) solid;
+	border-top: 1px rgba(0,0,0,.12) solid;
+}
+[role="tabpanel"] {
+	transition: none;
+}
+table.md-table tr td:first-child{
+	max-width: 200px;
+}
