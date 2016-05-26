@@ -5,7 +5,8 @@
 		.module('angular-component-tabletop')
 		.controller('tableCtrl', [
 			'galleryFactory',
-			function(Gallery){
+			'tableFactory',
+			function(Gallery, Table){
 				var that = this;
 
 				Gallery
@@ -13,7 +14,11 @@
 					.success(function(data){
 						that.data = data;
 					})
-					.error(console.error)
+					.error(console.error);
+
+				this.toggle = function(item, company){
+					Table.toggle(item, company);
+				};
 			}
 		])
 })();

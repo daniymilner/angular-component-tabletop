@@ -17,5 +17,5 @@ div(ng-controller='tableCtrl as table')
 								tr.md-row(ng-repeat='component in table.data.companies[tab_index].components')
 									td.md-cell.separate.md-title(ng-bind='component.name')
 									td.centred.separate(ng-repeat='version in component.versions')
-										md-checkbox.md-primary(ng-show='version.data.version', aria-label='version.data.version') {{version.data.version}}
+										md-checkbox.md-primary(ng-show='version.data.version', aria-label='version.data.version', ng-click='table.toggle(version, tab.company_name)') {{version.data.version}}
 										span(ng-hide='version.data.version') -
