@@ -1,13 +1,5 @@
-var path = require('path'),
-	utils = require('../../modules/utils');
+var modules = require('../../modules');
 
 module.exports = function(req, res){
-	utils
-		.readJSON(path.join(__dirname, '../../database.json'))
-		.then(function(result){
-			res.json(result);
-		})
-		.catch(function(){
-			res.sendStatus(409);
-		})
+	res.json(modules.config.getDatabase());
 };
