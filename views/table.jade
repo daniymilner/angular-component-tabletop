@@ -20,3 +20,5 @@ div(ng-controller='tableCtrl as table')
 										md-checkbox.md-primary(ng-show='version.data.version', aria-label='version.data.version', ng-click='table.toggle(version, tab.company_name)') {{version.data.version}}
 										span(ng-hide='version.data.version') -
 		p.md-title(ng-if='!table.data.companies.length') Database empty
+
+	//include refactor-table
