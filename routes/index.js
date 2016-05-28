@@ -11,6 +11,7 @@ router
 		res.render(path);
 	})
 	.get('/gallery/get-data', controllers.Gallery.get)
-	.post('/gallery/publish', controllers.Gallery.publish);
+	.post('/gallery/publish', controllers.Gallery.publish)
+	.post('/gallery/get-zip', controllers.Gallery.archive);
 
 module.exports = router;

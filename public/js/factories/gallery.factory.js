@@ -12,6 +12,9 @@
 				this.publish = function(data){
 					return $http.post('/gallery/publish', data);
 				};
+				this.getZip = function(data){
+					return $http.post('/gallery/get-zip', data)
+				};
 				return this;
 			}
 		])

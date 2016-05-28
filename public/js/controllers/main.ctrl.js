@@ -64,7 +64,12 @@
 
 				this.getChecked = function(){
 					console.log(Table.selected);
-				}
+				};
+
+				this.getZip = function(){
+					Gallery
+						.getZip(Table.selected)
+				};
 			}
 		])
 })();

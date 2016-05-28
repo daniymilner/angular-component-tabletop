@@ -11,6 +11,7 @@ html(ng-app='angular-component-tabletop')
 		main(ng-controller='mainCtrl as main')
 			md-toolbar.md-table-toolbar.md-primary(layout)
 				h1.md-toolbar-tools Components
+				md-button.md-accent.md-flat(ng-click="main.getZip()") Archive
 				md-button.md-accent.md-flat(ng-click="main.getChecked()") get list
 				md-button.md-accent.md-flat(ng-click="main.showPublishPopup($event)") Publish
 			include table
