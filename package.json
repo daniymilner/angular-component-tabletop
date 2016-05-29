@@ -2,8 +2,7 @@
   "name": "angular-component-tabletop",
   "version": "0.0.0",
   "scripts": {
-    "start": "npm run sync && nodemon",
-    "sync": "sh reload.sh"
+    "start": "sh reload.sh && nodemon"
   },
   "main": "app.js",
   "dependencies": {
