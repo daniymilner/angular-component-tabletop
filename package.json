@@ -22,7 +22,7 @@
     "type": "git",
     "url": "git+https://github.com/daniymilner/angular-component-tabletop.git"
   },
-  "author": "Aleksey Olenyuk <alo@qapint.com>",
+  "authors": ["Aleksey Olenyuk <alo@qapint.com>", "Vitaliy Melnik <vim@qapint.com>"],
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/daniymilner/angular-component-tabletop/issues"
