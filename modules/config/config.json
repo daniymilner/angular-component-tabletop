@@ -1,5 +1,10 @@
 {
 	"environment": {
-		"port": 2706
+		"port": 2706,
+		"db": {
+			"database": "component-tabletop",
+			"host": "127.0.0.1",
+			"debug": false
+		}
 	}
 }

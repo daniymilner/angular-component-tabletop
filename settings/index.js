@@ -12,4 +12,6 @@ module.exports = function(app){
 	app.use(bodyParser.urlencoded({extended: false}));
 	app.use(logger('dev'));
 	app.use('/', require('../routes'));
+
+	require('./db');
 };

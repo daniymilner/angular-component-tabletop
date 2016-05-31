@@ -27,6 +27,10 @@ Config.prototype.getDatabase = function(){
 	return this.getData('database');
 };
 
+Config.prototype.getDbData = function(){
+	return this.getEnvData().db;
+};
+
 Config.prototype.init = function(){
 	var that = this,
 		deferred = Q.defer();
