@@ -17,10 +17,7 @@ exports.get = function(req, res){
 		}
 		name = name.substr(0, 240) + extname;
 		res.setHeader('Content-disposition', "attachment; filename*=utf-8''" + encodeURIComponent(name));
-		res.sendfile(filePath, function(err){
-			console.log(err);
-			res.sendStatus(200);
-		});
+		res.sendfile(filePath);
 	}else{
 		res.send(404);
 	}
