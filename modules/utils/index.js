@@ -128,9 +128,13 @@ exports.cpIfExists = function(pathSrc, pathDest, cb){
 exports.rm = function(pathSrc, cb){
 	var deferred = Q.defer();
 	pathSrc = path.normalize(pathSrc);
-	fs.remove(pathSrc, function (err){
-		callbackResult(cb, err, deferred);
-	});
+	if(fs.existsSync(pathSrc)){
+		fs.remove(pathSrc, function (err){
+			callbackResult(cb, err, deferred);
+		});
+	}else{
+		callbackResult(cb, null, deferred);
+	}
 	return deferred.promise;
 };
 
@@ -140,7 +144,6 @@ exports.cp = function(pathSrc, pathDest, cb){
 	pathDest = path.normalize(pathDest);
 
 	fs.copy(pathSrc, pathDest, function (err){
-		console.log(err);
 		callbackResult(cb, err, deferred);
 	});
 	return deferred.promise;

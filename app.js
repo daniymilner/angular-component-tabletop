@@ -1,9 +1,13 @@
 var modules = require('./modules'),
-	express = require('express');
+	express = require('express'),
+	path = require('path');
 
 modules
 	.config
 	.init()
+	.then(function(){
+		return modules.utils.rm(path.join(__dirname, '.tmp'));
+	})
 	.then(function(){
 		return modules.sync();
 	})

@@ -69,6 +69,11 @@
 				this.getZip = function(){
 					Gallery
 						.getZip(Table.selected)
+						.then(function(res){
+							if(res.data.file){
+								document.location.href = '/download?file=' + encodeURIComponent(res.data.file) + '&name=components';
+							}
+						})
 				};
 			}
 		])

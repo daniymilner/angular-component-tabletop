@@ -4,14 +4,15 @@ var async = require('async'),
 	zipper = require('zipper'),
 	Q = require('q');
 
-function copyData(data){
+function copyData(folderHash, data){
 	var deferred = Q.defer(),
 		tmpPath = path.join(__dirname, '../../.tmp'),
-		galleryPath = path.join(__dirname, '../../component-gallery');
+		galleryPath = path.join(__dirname, '../../component-gallery'),
+		rootTmpFolder = path.join(tmpPath, folderHash);
 
 	if(data.length){
 		async.map(data, function(version, version_cb){
-			var pathToVersion = path.join(tmpPath, version.version);
+			var pathToVersion = path.join(rootTmpFolder, version.version);
 			utils
 				.mkdir(pathToVersion)
 				.then(function(){
@@ -23,17 +24,24 @@ function copyData(data){
 									utils.cp(path.join(galleryPath, version.version, company.name, component.id), pathToComponent)
 										.then(function(){
 											component_cb();
+										})
+										.catch(function(err){
+											component_cb(err);
 										});
 								});
-						}, function(){
-							company_cb();
+						}, function(err){
+							company_cb(err);
 						});
-					}, function(){
-						version_cb(null, '.tmp/'+ version.version);
+					}, function(err){
+						version_cb(err, path.join('.tmp', folderHash, version.version));
 					});
 				});
 		}, function(err, res){
-			deferred.resolve(res);
+			if(!err){
+				deferred.resolve(res);
+			}else{
+				deferred.reject(err);
+			}
 		});
 	}else{
 		deferred.reject()
@@ -45,17 +53,15 @@ function copyData(data){
 function createZip(directories){
 	var deferred = Q.defer(),
 		destPath = '.download/';
-
 	async.map(directories, function(dir, cb){
 		var pathToFile = destPath + utils.genDynHash(4) + '.zip';
 		zipper.zip({
 			src: dir,
 			dest: pathToFile
 		}, function(err){
-			cb(err, path.normalize(process.cwd() + path.sep + pathToFile));
+			cb(err, pathToFile);
 		});
 	}, function(err, res){
-		clearTemp();
 		if(!err){
 			deferred.resolve(res);
 		}else{
@@ -66,66 +72,72 @@ function createZip(directories){
 	return deferred.promise;
 }
 
-function clearTemp(){
-	var deferred = Q.defer(),
-		tmpPath = path.join(__dirname, '../../.tmp');
-
-	utils.readDirAsync(tmpPath)
-		.then(function(entries){
-			async.each(entries, function(entry, cb){
-				var dirPath = path.join(tmpPath, entry);
-				if(utils.isDirectory(dirPath)){
-					utils.rm(dirPath)
-						.then(cb)
-				}else{
-					cb(new Error());
-				}
-			}, function(err){
-				if(!err){
-					deferred.resolve();
-				}else{
-					deferred.reject();
-				}
-			});
-
-		});
-
-	return deferred.promise;
+function clearTemp(folderHash){
+	return utils.rm(path.join(__dirname, '../../.tmp', folderHash));
 }
 
-function copyArchives(archives){
+function copyArchives(folderHash, archives){
 	var deferred = Q.defer(),
-		downloadPath = path.join(__dirname, '../../.download');
-
-	if(archives.length){
-		utils.mkdir(downloadPath + '/packs')
+		zipSrc = path.join('.download/packs/', folderHash),
+		destZip = path.join('.download/packs/', utils.genDynHash(4) + '.zip'),
+		downloadPath = path.join(__dirname, '../../', zipSrc);
+	if(!archives.length){
+		deferred.reject();
+	}else if(archives.length === 1){
+		deferred.resolve(archives[0]);
+	}else{
+		utils.mkdir(downloadPath)
 			.then(function(){
 				async.each(archives, function(archive, cb){
-					utils.cp(archive, downloadPath + '/packs')
+					utils.cp(archive, path.join(downloadPath, utils.genDynHash(3) + '.zip'))
 						.then(function(){
+							utils.rm(archive);
 							cb()
+						})
+						.catch(function(err){
+							cb(err);
 						});
 				}, function(err){
-					err ? deferred.reject(err) : deferred.resolve();
+					if(!err){
+						zipper.zip({
+							src: zipSrc,
+							dest: destZip
+						}, function(err){
+							utils.rm(downloadPath);
+							err ? deferred.reject(err) : deferred.resolve(destZip);
+						});
+					}else{
+						deferred.reject(err);
+					}
 				});
 			});
-	}else{
-		deferred.reject()
 	}
 
 	return deferred.promise;
 }
 
-exports.createZip = function(data){
-	return copyData(data)
+exports.createZip = function(data, storeData){
+	var deferrer = Q.defer(),
+		folderHash = utils.genDynHash(3);
+
+	copyData(folderHash, data)
 		.then(function(directories){
 			return createZip(directories)
 		})
+		.then(function(files){
+			if(!storeData){
+				clearTemp(folderHash);
+			}
+			deferrer.resolve(files);
+		})
+		.catch(deferrer.reject);
+	return deferrer.promise;
 };
 
 exports.createZipPack = function(data){
-	return exports.createZip(data)
+	var folderHash = utils.genDynHash(3);
+	return exports.createZip(data, true)
 		.then(function(archives){
-			return copyArchives(archives)
+			return copyArchives(folderHash, archives)
 		})
 };
