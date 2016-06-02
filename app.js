@@ -9,6 +9,9 @@ modules
 		return modules.utils.rm(path.join(__dirname, '.tmp'));
 	})
 	.then(function(){
+		return modules.utils.rm(path.join(__dirname, '.download'));
+	})
+	.then(function(){
 		return modules.sync();
 	})
 	.then(function(database){

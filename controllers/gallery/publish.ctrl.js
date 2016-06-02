@@ -1,4 +1,7 @@
-var eWizard = require('../../services').eWizard;
+var eWizard = require('../../services').eWizard,
+	modules = require('../../modules'),
+	async = require('async'),
+	Q = require('q');
 
 module.exports = function(req, res){
 	var eWizardUser;
@@ -8,7 +11,31 @@ module.exports = function(req, res){
 			.then(function(response){
 				eWizardUser = response;
 				delete eWizardUser.presentations;
-				return eWizard.publish(req.body.userdata.instance, eWizardUser.access_token);
+				return modules.archive.createZip(req.body.selectedList);
+			})
+			.then(function(pathToZip){
+				if(Array.isArray(pathToZip)){
+					var deferrer = Q.defer();
+					async.mapSeries(pathToZip, function(zipPath, cb){
+						eWizard
+							.publish(req.body.userdata.instance, eWizardUser.access_token, zipPath)
+							.then(function(){
+								cb();
+							})
+							.catch(function(err){
+								cb(err);
+							})
+					}, function(err){
+						if(!err){
+							deferrer.resolve();
+						}else{
+							deferrer.reject(err);
+						}
+					});
+					return deferrer.promise;
+				}else{
+					return eWizard.publish(req.body.userdata.instance, eWizardUser.access_token, pathToZip)
+				}
 			})
 			.then(function(){
 				return eWizard.logout(req.body.userdata.instance, eWizardUser.access_token);
@@ -16,7 +43,8 @@ module.exports = function(req, res){
 			.then(function(){
 				res.sendStatus(200);
 			})
-			.catch(function(){
+			.catch(function(err){
+				console.log(err);
 				res.sendStatus(409);
 			});
 	}else{

@@ -9,7 +9,8 @@
 			'galleryFactory',
 			'tableFactory',
 			'$scope',
-			function($mdDialog, $mdMedia, Gallery, Table, $scope){
+			'$mdToast',
+			function($mdDialog, $mdMedia, Gallery, Table, $scope, $mdToast){
 				var that = this;
 
 				this.customFullscreen = $mdMedia('xs') || $mdMedia('sm');
@@ -43,13 +44,23 @@
 						.then(function(data){
 							Gallery
 								.publish({
-									userdata: data
+									userdata: data,
+									selectedList: Table.getClearedSelectedList()
 								})
-								.success(function(data){
-									console.log(data);
+								.success(function(){
+									$mdToast.show(
+										$mdToast.simple()
+											.textContent('Published successfully!')
+											.hideDelay(3000)
+									);
 								})
 								.error(function(err){
 									console.error(err);
+									$mdToast.show(
+										$mdToast.simple()
+											.textContent('Something went wrong, try again later!')
+											.hideDelay(3000)
+									);
 								});
 						}, function(){
 							console.log('cancel dialog');
@@ -68,7 +79,7 @@
 
 				this.getZip = function(){
 					Gallery
-						.getZip(Table.selected)
+						.getZip(Table.getClearedSelectedList())
 						.then(function(res){
 							if(res.data.file){
 								document.location.href = '/download?file=' + encodeURIComponent(res.data.file) + '&name=components';

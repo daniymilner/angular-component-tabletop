@@ -44,7 +44,10 @@
 						if(!checkVersion(item.version)){
 							that.selected.push({
 								version: item.version,
-								companies: [].concat([{name: company, components: [item.data]}])
+								companies: [].concat([{
+									name: company,
+									components: [item.data]
+								}])
 							});
 
 						}else{
@@ -68,6 +71,15 @@
 
 						that.selected[versionIndex].companies[companyIndex].components.splice(componentIndex, 1);
 					};
+
+				this.getClearedSelectedList = function(){
+					this.selected = this.selected.filter(function(version){
+						return version.companies.length && version.companies.filter(function(company){
+								return company.components.length;
+							}).length;
+					});
+					return this.selected;
+				};
 
 				this.selected = [];
 

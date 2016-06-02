@@ -5,14 +5,14 @@ var request = require('request'),
 	utils = require('../../modules/utils'),
 	url = require('url');
 
-module.exports = function(instance, access_token){
+module.exports = function(instance, access_token, pathToZip){
 	var deferrer = Q.defer();
 	request
 		.post({
 			url: url.resolve(instance, '/admin/api/components/upload'),
 			headers: utils.getAuthorizationHeader(access_token),
 			formData: {
-				components: fs.createReadStream(path.join(__dirname, '../../.download/default.zip'))
+				components: fs.createReadStream(path.join(__dirname, '../../', pathToZip))
 			}
 		}, function(err){
 			if(!err){

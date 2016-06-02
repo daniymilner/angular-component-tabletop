@@ -14,12 +14,16 @@ module.exports = function(){
 		return fs.lstatSync(contentPath).isDirectory();
 	}
 
+	function temporaryExclude(item){
+		return ['36', '41', 'application']. indexOf(item) === -1;
+	}
+
 	function getEwizardVersions(){
 		var deferrer = Q.defer();
 		fs.readdir(galleryPath, function(err, content){
 			if(!err){
 				result = versions = content.filter(function(item){
-					return excluded.indexOf(item) === -1 && checkIsDirectory(path.join(galleryPath, item));
+					return excluded.indexOf(item) === -1 && checkIsDirectory(path.join(galleryPath, item)) && temporaryExclude(item);
 				}).map(function(item){
 					return {
 						type: 'ewizardVersion',
