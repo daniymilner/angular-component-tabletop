@@ -59,3 +59,7 @@ table.md-table .md-title{
 #customTabs li.active{
 	color: rgb(63,81,181);
 }
+md-toolbar.footer{
+	padding: 0 40px;
+	font-size: 16px;
+}

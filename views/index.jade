@@ -14,6 +14,10 @@ html(ng-app='angular-component-tabletop')
 				md-button.md-accent.md-flat(ng-click="main.getZip()", ng-if='main.showButtons') Archive
 				md-button.md-accent.md-flat(ng-click="main.showPublishPopup($event)", ng-if='main.showButtons') Publish
 			include table
+		md-toolbar.footer.md-primary(layout="row" layout-align="space-between center")
+			p eWizard component tabletop &copy;
+			p v.#{version}
+
 		script(src='bower_components/angular/angular.min.js')
 		script(src='bower_components/angular-aria/angular-aria.js')
 		script(src='bower_components/angular-animate/angular-animate.js')

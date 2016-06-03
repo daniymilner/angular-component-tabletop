@@ -2,9 +2,11 @@ var express = require("express"),
 	bodyParser = require('body-parser'),
 	logger = require('morgan'),
 	path = require('path'),
-	rootPath = path.dirname(require.main.filename);
+	rootPath = path.dirname(require.main.filename),
+	packageJson = require('../package.json');
 
 module.exports = function(app){
+	app.set('version', packageJson.version);
 	app.set('views', path.join(rootPath, 'views'));
 	app.use(express.static(path.join(rootPath, 'public')));
 	app.set('view engine', 'jade');

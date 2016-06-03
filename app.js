@@ -15,7 +15,7 @@ modules
 		return modules.sync();
 	})
 	.then(function(database){
-		var app = express(),
+		var app = global.app = express(),
 			envData = modules.config.getEnvData();
 
 		modules.config.setData({database: database});

@@ -4,7 +4,9 @@ var express = require('express'),
 
 router
 	.get('/', function(req, res){
-		res.render('index');
+		res.render('index', {
+			version: global.app.get('version')
+		});
 	})
 	.get('/views/*', function(req, res){
 		var path = req.url.replace(/(^\/views\/|\.html$)/gim, '');
