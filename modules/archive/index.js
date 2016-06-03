@@ -9,7 +9,6 @@ function copyData(folderHash, data){
 		tmpPath = path.join(__dirname, '../../.tmp'),
 		galleryPath = path.join(__dirname, '../../component-gallery'),
 		rootTmpFolder = path.join(tmpPath, folderHash);
-	console.log(data);
 	if(data.length){
 		async.map(data, function(version, version_cb){
 			var pathToVersion = path.join(rootTmpFolder, version.version);
