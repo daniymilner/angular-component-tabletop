@@ -8,5 +8,9 @@ module.exports = function(req, res){
 			res.json({
 				file: path
 			})
+		})
+		.catch(function(err){
+			console.log(err);
+			res.sendStatus(409);
 		});
 };

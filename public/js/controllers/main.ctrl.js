@@ -58,7 +58,7 @@
 									console.error(err);
 									$mdToast.show(
 										$mdToast.simple()
-											.textContent('Something went wrong, try again later!')
+											.textContent('Something went wrong! Check your credentials, choose at least one component and try again later!')
 											.hideDelay(3000)
 									);
 								});
@@ -73,10 +73,6 @@
 					});
 				};
 
-				this.getChecked = function(){
-					console.log(Table.selected);
-				};
-
 				this.getZip = function(){
 					Gallery
 						.getZip(Table.getClearedSelectedList())
@@ -84,6 +80,14 @@
 							if(res.data.file){
 								document.location.href = '/download?file=' + encodeURIComponent(res.data.file) + '&name=components';
 							}
+						})
+						.catch(function(err){
+							console.warn(err);
+							$mdToast.show(
+								$mdToast.simple()
+									.textContent('Something went wrong! Choose at least one component and try again later!')
+									.hideDelay(3000)
+							);
 						})
 				};
 			}
