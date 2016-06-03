@@ -15,7 +15,7 @@ module.exports = function(){
 	}
 
 	function temporaryExclude(item){
-		return ['36', '41', 'application']. indexOf(item) === -1;
+		return ['36', '41', 'application'].indexOf(item) === -1;
 	}
 
 	function getEwizardVersions(){

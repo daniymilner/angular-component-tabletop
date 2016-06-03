@@ -14,22 +14,26 @@
 				var that = this;
 
 				this.customFullscreen = $mdMedia('xs') || $mdMedia('sm');
+				this.showButtons = false;
 
 				this.showPublishPopup = function(event){
 					var useFullScreen = ($mdMedia('sm') || $mdMedia('xs')) && this.customFullscreen;
 					$mdDialog
 						.show({
 							controller: ['$mdDialog', function($mdDialog){
-								this.data = {
-									instance: 'http://192.168.0.212:3000',
-									login: 'system',
-									password: 'pass4ewizard!'
+								var ewizard_creds = localStorage.getItem('ewizard_creds') ? JSON.parse(localStorage.getItem('ewizard_creds')) : null;
+
+								this.data = ewizard_creds || {
+									instance: '',
+									login: '',
+									password: ''
 								};
 								this.cancel = function(){
 									$mdDialog.cancel();
 								};
 								this.send = function(){
 									if(this.data.instance && this.data.login && this.data.password){
+										localStorage.setItem('ewizard_creds', JSON.stringify(this.data));
 										$mdDialog.hide(this.data);
 									}
 								};
@@ -73,9 +77,9 @@
 					});
 				};
 
-				this.getChecked = function(){
-					console.log(Table.selected);
-				};
+				$scope.$on('toggle', function(){
+					that.showButtons = !!Table.getClearedSelectedList().length
+				});
 
 				this.getZip = function(){
 					Gallery

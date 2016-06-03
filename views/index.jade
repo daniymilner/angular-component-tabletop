@@ -11,9 +11,8 @@ html(ng-app='angular-component-tabletop')
 		main(ng-controller='mainCtrl as main')
 			md-toolbar.md-table-toolbar.md-primary(layout)
 				h1.md-toolbar-tools Components
-				md-button.md-accent.md-flat(ng-click="main.getZip()") Archive
-				md-button.md-accent.md-flat(ng-click="main.getChecked()") get list
-				md-button.md-accent.md-flat(ng-click="main.showPublishPopup($event)") Publish
+				md-button.md-accent.md-flat(ng-click="main.getZip()", ng-if='main.showButtons') Archive
+				md-button.md-accent.md-flat(ng-click="main.showPublishPopup($event)", ng-if='main.showButtons') Publish
 			include table
 		script(src='bower_components/angular/angular.min.js')
 		script(src='bower_components/angular-aria/angular-aria.js')

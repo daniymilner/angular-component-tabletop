@@ -4,9 +4,10 @@
 	angular
 		.module('angular-component-tabletop')
 		.controller('tableCtrl', [
+			'$scope',
 			'galleryFactory',
 			'tableFactory',
-			function(Gallery, Table){
+			function($scope, Gallery, Table){
 				var that = this;
 
 				Gallery
@@ -21,6 +22,7 @@
 
 				this.toggle = function(item, company){
 					Table.toggle(item, company);
+					$scope.$emit('toggle');
 				};
 
 				this.setActive = function(name){
