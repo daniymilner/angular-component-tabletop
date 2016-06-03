@@ -1,6 +1,6 @@
 {
   "name": "angular-component-tabletop",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "scripts": {
     "start": "sh reload.sh && nodemon"
   },
@@ -22,7 +22,10 @@
     "type": "git",
     "url": "git+https://github.com/daniymilner/angular-component-tabletop.git"
   },
-  "authors": ["Aleksey Olenyuk <alo@qapint.com>", "Vitaliy Melnik <vim@qapint.com>"],
+  "authors": [
+    "Aleksey Olenyuk <alo@qapint.com>",
+    "Vitaliy Melnik <vim@qapint.com>"
+  ],
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/daniymilner/angular-component-tabletop/issues"
