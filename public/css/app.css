@@ -21,6 +21,9 @@ table.md-table td.md-cell{
 table.md-table .md-title{
 	font-size: 18px;
 }
+table.md-table .md-title{
+	cursor: pointer;
+}
 
 #customTabs{
 	display: flex;

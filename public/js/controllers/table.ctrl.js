@@ -36,6 +36,27 @@
 						}
 					}
 					return 0;
+				};
+
+				this.checkColumn = function(item_index, company_index){
+					console.log(that.active);
+					that
+						.data
+						.companies[company_index]
+						.components.forEach(function(component){
+							component.versions[item_index].checked = !component.versions[item_index].checked;
+							that.toggle(component.versions[item_index], that.data.companies[company_index].company_name);
+						});
+				};
+
+				this.checkRow = function(item_index, company_index){
+					that
+						.data
+						.companies[company_index]
+						.components[item_index].versions.forEach(function(componentVersion){
+							componentVersion.checked = !componentVersion.checked;
+							that.toggle(componentVersion, that.data.companies[company_index].company_name);
+						});
 				}
 			}
 		])

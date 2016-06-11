@@ -91,6 +91,8 @@
 					}
 				};
 
+				this.getElementIndexByExpression = getElementIndexByExpression;
+
 				return this;
 			}
 		]);
